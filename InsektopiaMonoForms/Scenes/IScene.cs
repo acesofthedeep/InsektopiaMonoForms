@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using IDrawable = InsektopiaMonoForms.Tools.IDrawable;
 
 namespace InsektopiaMonoForms.Scenes;
 
-public interface IScene
+public interface IScene : IDrawable
 {
-    void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager);
-    void Update(GameTime gameTime);
+    void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager,
+        SpriteBatch spriteBatch);
 
-    void Draw(GameTime gameTime);
+    void Update(GameTime gameTime);
 }

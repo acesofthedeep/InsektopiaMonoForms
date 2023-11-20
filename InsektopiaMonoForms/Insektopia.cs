@@ -8,9 +8,11 @@ namespace InsektopiaMonoForms;
 
 public class Insektopia : Game
 {
+    public static int ScreenWidth;
+    public static int ScreenHeight;
+    private GameScene _currentScene;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-    private GameScene _currentScene;
 
     public Insektopia()
     {
@@ -19,14 +21,12 @@ public class Insektopia : Game
         IsMouseVisible = true;
         _graphics.PreferredBackBufferWidth = 1920;
         _graphics.PreferredBackBufferHeight = 1080;
+        ScreenWidth = 1920;
+        ScreenHeight = 1080;
     }
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
-
-        // GameState gameState, Player localPlayer, Player remotePlayer, ClientTcpListener clientTcpListener
-
         ClientTcpListener clientTcpListener = new ClientTcpListener();
         GameState gameState = new GameState();
         Player localPlayer = new Player();
@@ -40,8 +40,8 @@ public class Insektopia : Game
 
     protected override void LoadContent()
     {
-       
-        _currentScene.LoadContent(Content,_graphics);
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _currentScene.LoadContent(Content, _graphics, _spriteBatch);
         // TODO: use this.Content to load your game content here
     }
 
@@ -59,10 +59,9 @@ public class Insektopia : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
         _spriteBatch.Begin();
         _currentScene.Draw(gameTime);
-        
+
         _spriteBatch.End();
 
         base.Draw(gameTime);

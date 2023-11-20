@@ -11,13 +11,8 @@ public abstract class Scene : IScene
     private readonly Player _localPlayer;
     private readonly Player _remotePlayer;
 
-    public SpriteBatch SpriteBatch { get; set; }
-
-    protected ContentManager Content { get; set; }
-    protected GraphicsDeviceManager Graphics { get; set; }
-    protected GameState CurrentGameState { get; set; }
-    
-    protected Scene(ClientTcpListener clientTcpListener, GameState currentGameState, Player localPlayer, Player remotePlayer)
+    protected Scene(ClientTcpListener clientTcpListener, GameState currentGameState, Player localPlayer,
+        Player remotePlayer)
     {
         _clientTcpListener = clientTcpListener;
         _localPlayer = localPlayer;
@@ -25,11 +20,19 @@ public abstract class Scene : IScene
         CurrentGameState = currentGameState;
     }
 
+    public SpriteBatch SpriteBatch { get; set; }
 
-    public virtual void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager)
+    protected ContentManager Content { get; set; }
+    protected GraphicsDeviceManager Graphics { get; set; }
+    protected GameState CurrentGameState { get; set; }
+
+
+    public virtual void LoadContent(ContentManager contentManager, GraphicsDeviceManager graphicsDeviceManager,
+        SpriteBatch spriteBatch)
     {
         Content = contentManager;
         Graphics = graphicsDeviceManager;
+        SpriteBatch = spriteBatch;
     }
 
     public virtual void Update(GameTime gameTime)
@@ -38,7 +41,4 @@ public abstract class Scene : IScene
     }
 
     public abstract void Draw(GameTime gameTime);
-
-
-
 }
